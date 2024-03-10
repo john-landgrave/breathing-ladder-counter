@@ -2,7 +2,7 @@
   <div class="reps self-center h-full">
     <form class="py-4 flex flex-col h-full" @submit.prevent="$emit('complete')">
       <div class="flex-1 flex items-center justify-center">
-        <span class="text-5xl text-blue-400">
+        <span class="counterNumber text-blue-400">
           {{ breathCount }}
         </span>
       </div>

@@ -51,3 +51,7 @@ button.bigButton {
   width: min(80vw, 480px);
   height: min(30vh, 480px);
 }
+
+.counterNumber {
+  font-size: 100px;
+}
