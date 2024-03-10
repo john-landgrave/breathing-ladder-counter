@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, computed, type Ref } from 'vue';
+import { ref, computed, type Ref } from 'vue';
 import Setup from './components/Setup.vue';
 import Reps from './components/Reps.vue';
 import Breaths from './components/Breaths.vue';
@@ -44,8 +44,14 @@ const completeBreaths = () => {
 
     currentRepCount.value--;
   }
-
 }
+
+const totalTime = computed(() => {
+  if (typeof tick.value !== 'undefined' && typeof tock.value !== 'undefined') {
+    return tock.value - tick.value;
+  }
+  return 0;
+})
 </script>
 
 <template>
@@ -67,7 +73,7 @@ const completeBreaths = () => {
   <Done
     v-if="currentStep === 'done'"
     :totalReps="totalReps"
-    :totalTime="tock - tick"
+    :totalTime="totalTime"
   ></Done>
 </template>
 
