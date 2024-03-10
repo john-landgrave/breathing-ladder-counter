@@ -15,11 +15,15 @@ const totalReps = ref(0);
 const currentStep: Ref<WhatToShow> = ref('setup');
 const tick: Ref<number|undefined> = ref(undefined);
 const tock: Ref<number|undefined> = ref(undefined);
+let wakeLockSentinel: WakeLockSentinel|undefined = undefined;
 
-const finishSetup = () => {
-  currentStep.value = 'reps';
+const finishSetup = async () => {
   currentRepCount.value = Math.min(numberOfReps.value, 1);
   tick.value = Date.now();
+  try {
+    wakeLockSentinel = await navigator.wakeLock.request("screen");
+  } catch(e) {}
+  currentStep.value = 'reps';
 };
 
 const completeReps = () => {
@@ -39,6 +43,7 @@ const completeBreaths = () => {
     if (currentRepCount.value === 1) {
       tock.value = Date.now();
       currentStep.value = 'done';
+      wakeLockSentinel?.release();
       return;
     }
 
